@@ -6,14 +6,7 @@ add_definitions(-DCPU_ONLY=1)
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
 find_package(catkin REQUIRED COMPONENTS
-  roscpp
-  roslib
-  std_msgs
-  sensor_msgs 
-  image_transport
-  cv_bridge
-  message_generation
-  face_tracker 
+  roscpp roslib std_msgs sensor_msgs image_transport cv_bridge
 )
 
 set(CAFFE_INCLUDEDIR caffe/include caffe/distribute/include)
@@ -22,7 +15,6 @@ set(CAFFE_LINK_LIBRARAY caffe/build/lib)
 ## System dependencies are found with CMake's conventions
 find_package(Boost REQUIRED COMPONENTS system)
 find_package(OpenCV REQUIRED)
-find_package(CUDA REQUIRED)
 
 
 ## Uncomment this if the package has a setup.py. This macro ensures
@@ -174,24 +166,5 @@ include_directories(${CAFFE_INCLUDEDIR})
 ## Add folders to be run by python nosetests
 # catkin_add_nosetests(test)
 link_directories(${CAFFE_LINK_LIBRARAY})
-
 add_executable(ros_caffe_test src/ros_caffe_test.cpp)
-add_executable(classify_camera src/classify_camera.cpp)
-add_executable(image_caffe_test src/image_caffe_test.cpp)
-add_executable(face_recognition_test src/face_recognition_test.cpp)
-add_executable(face_recognition_camera src/face_recognition_camera.cpp)
-add_executable(emotion_recognition_camera src/emotion_recognition_camera.cpp)
-add_executable(test_depth_net src/test_depth_net.cpp src/depth_net.cpp)
-add_executable(camera_depth_net src/camera_depth_net.cpp src/depth_net.cpp)
-
-add_dependencies(face_recognition_camera face_tracker_generate_messages_cpp ${catkin_EXPORTED_TRAGETS})
-add_dependencies(emotion_recognition_camera face_tracker_generate_messages_cpp ${catkin_EXPORTED_TRAGETS})
-
 target_link_libraries(ros_caffe_test ${catkin_LIBRARIES} ${OpenCV_LIBRARIES} caffe glog)
-target_link_libraries(classify_camera ${catkin_LIBRARIES} ${OpenCV_LIBRARIES} caffe glog)
-target_link_libraries(image_caffe_test ${catkin_LIBRARIES} ${OpenCV_LIBRARIES} caffe glog)
-target_link_libraries(face_recognition_test ${catkin_LIBRARIES} ${OpenCV_LIBRARIES} caffe glog)
-target_link_libraries(face_recognition_camera ${catkin_LIBRARIES} ${OpenCV_LIBRARIES} caffe glog)
-target_link_libraries(emotion_recognition_camera ${catkin_LIBRARIES} ${OpenCV_LIBRARIES} caffe glog)
-target_link_libraries(test_depth_net ${catkin_LIBRARIES} ${OpenCV_LIBRARIES} caffe glog)
-target_link_libraries(camera_depth_net ${catkin_LIBRARIES} ${OpenCV_LIBRARIES} caffe glog)

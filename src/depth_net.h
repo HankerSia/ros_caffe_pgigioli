@@ -18,6 +18,7 @@ class DepthNet
                const std::string& mean_file);
 
       cv::Mat Predict(const cv::Mat& img);
+      cv::Size Get_input_geometry();
 
    private:
       void LoadNetwork(const std::string& deploy_prototxt,

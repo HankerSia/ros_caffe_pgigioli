@@ -16,6 +16,11 @@ DepthNet::DepthNet(const std::string& deploy_prototxt, const std::string& weight
    SetMean(mean_file);
 }
 
+cv::Size DepthNet::Get_input_geometry()
+{
+   return _input_geometry;
+}
+
 void DepthNet::LoadNetwork(const std::string& deploy_prototxt, const std::string& weights_file)
 {
    // initialize new net and load weights
